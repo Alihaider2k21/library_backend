@@ -3,8 +3,6 @@ import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import knex from "knex";
-// import books from "./database/migrations/20220902191301_books.js"
-// import knexConfig from "./database/knexfile.js";
 const app = express();
 
 app.use(cors());
@@ -52,8 +50,6 @@ app.get("/student/:id", async (req, res) => {
       .then(function (data) {
         res.json(data);
       });
-    // console.log("okok");
-    // res.status(200).json(result);
   } catch (err) {
     res.json({ message: err });
   }
@@ -62,14 +58,12 @@ app.get("/student/:id", async (req, res) => {
 app.post("/student", (req, res) => {
   // TODO insert user
 
-  console.log("haha");
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
 
   knexy("student")
     .insert({ firstName, lastName })
     .then(() => {
-      console.log("lul");
       return res.json(res.body);
     })
     .catch((err) => {
@@ -104,7 +98,6 @@ app.delete("/student/:id", async (req, res) => {
       .then(function (data) {
         res.send(data);
       });
-    // res.status(200).json(result);
   } catch (err) {
     res.json({ message: err });
   }
@@ -113,14 +106,9 @@ app.delete("/student/:id", async (req, res) => {
 app.get("/books", async (req, res) => {
   try {
     const books = await knexy("books").select("*").from("books");
-    // if (books.borrowedBy !== null)
-    //   books = await knexy("books")
-    //     .select("*")
-    //     .from("books")
-    //     .innerJoin("student", "books.borrowedBy", "student.id");
     res.json(books);
   } catch (err) {
-    // res.json({ message: err });
+    res.json({ message: err });
   }
 });
 
@@ -133,8 +121,6 @@ app.get("/books/:id", async (req, res) => {
       .then(function (data) {
         res.send(data);
       });
-    // console.log("okok");
-    // res.status(200).json(result);
   } catch (err) {
     res.json({ message: err });
   }
@@ -158,8 +144,6 @@ app.put("/books/:id", async (req, res) => {
       .then(function (data) {
         res.json(data);
       });
-    // console.log("okok");
-    // res.status(200).json(result);
   } catch (err) {
     res.json({ message: err });
   }
@@ -174,7 +158,6 @@ app.delete("/books/:id", async (req, res) => {
       .then(function (data) {
         res.send(data);
       });
-    // res.status(200).json(result);
   } catch (err) {
     res.json({ message: err });
   }
